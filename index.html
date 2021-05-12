@@ -6,13 +6,63 @@
        <style>
         [v-cloak] {
             display: none;}
+       
+        .highlight {
+            border: solid 3px red; 
+            color: red;
+        }
+        
+        .shooting-star-leave-to, .shooting-star-enter{
+            transform: translateX(150px) rotate(30deg);
+            opacity: 0;
+        }
+        .shooting-star-enter-active, .shooting-star-leave-active {
+            transition: all .5s ease;
+        }
+
+        .neo-list-leave-to, .neo-list-enter {
+            opacity: 0;
+            transform: translatex(150px);
+        }
+        .neo-list-enter-active, .neo-list-leave-active {
+            transition: all 1s linear;
+        }
+
+        .spin-enter-active {
+            animation: spin-steps 2s;
+        }
+        @keyframes spin-steps {
+            0% {
+                transform: scale(1) rotate(0);
+            }
+            50% {
+                transform: scale(10) rotate(360deg);
+            }
+            100% {
+                transform: scale(1) rotate(1080deg);
+            }
+        }
         </style>
 
 <div id="app">
     <div class="container">
         <div class=" card mt-5">
-        <h2 class="class-header"> Near-Earth Objects </h2>
-                <table class="table">
+        <h2 class="class-header"> Near-Earth 
+            
+            <transition name="spin" appear>
+                <span style="display:inline-block">Objects</span>
+            </transition>
+        </h2>
+            <transition name="shooting-star">
+                <div class="m-3" v-cloak v-if="numAsteroids > 0 && showSummary" > 
+                <p>Showing {{numAsteroids}} Asteroids</p>
+                <p>{{ClosestObject}} has the closest date to Earth</p> 
+                </div>
+            </transition>
+            <div>
+              <a href="#" @click="showSummary = !showSummary">Show/Hide Summary</a>  
+            </div>
+                <table class="table table-striped" :class="['table-dark', 'table-bordered']">
                 <thead class="thead-light">
                     <th> # </th>
                     <th> Name </th>
@@ -20,8 +70,8 @@
                     <th> Miss Distance </th>
                     <th> Remove </th>
                 </thead>
-                <tbody v-cloak>
-                    <tr v-for="(a, index) in asteroids">
+                   <tbody is="transition-group" name="neo-list" v-cloak>
+                    <tr v-for="(a, index) in asteroids" :key="a.neo_reference_id" :class="{highlight: missingData(a)}">
                         <td>{{index + 1}}</td>
                         <td>{{a.name}}</td>
                         <td>{{closeApproachDate(a)}}</td>
@@ -32,7 +82,7 @@
                                 </li>
                             </ul>
                         </td>
-                        <td><button @click="remove(index)" class="btn btn-warning"> Remove </button></td>
+                        <td> <button @click="remove(index)" class="btn btn-warning"> Remove </button></td>
                     </tr>
                 </tbody>
             </table>
@@ -46,7 +96,25 @@
        var VM = new Vue({
             el: '#app',
             data: {
-                asteroids: []
+                asteroids: [],
+                showSummary: true
+                },
+                computed: {
+                    numAsteroids: function () {
+                        return this.asteroids.length;
+                    },
+                    ClosestObject: function () {
+                        var neosHavingData = this.asteroids.filter(function (neo) {
+                            return neo.close_approach_data.length > 0;
+                        });            
+                        var simpleNeos= neosHavingData.map(function (neo) {
+                            return {name:neo.name, miles: neo.close_approach_data[0].miss_distance.miles};
+                        });   
+                        var sortedNeos = simpleNeos.sort(function (a,b) {
+                            return a.miles - b.miles;
+                        });
+                        return sortedNeos[0].name;
+                    }
                 },
                 created: function () {
                     this.fetchAste ();
@@ -61,15 +129,23 @@ var apiURL = 'https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=' + apiKEY;
                         });
                 },
                 closeApproachDate: function (a) {
-                        if(a.close_approach_data_length > 0) {
+                        if(a.close_approach_data.length > 0) {
                             return a.close_approach_data[0].close_approach_date;
                         }
                         return 'N/A';
                 },
                 remove: function (index) {
                     this.asteroids.splice(index, 1);
+                },
+                getRowStyle: function (a) {
+                    if(a.close_approach_data.length == 0){
+                        return{border: 'solid 3px red', color: 'red'};
+                    }
+                },
+                missingData: function(a) {
+                    return a.close_approach_data.length == 0;
                 }
-            }
+            }   
         });
 
 
