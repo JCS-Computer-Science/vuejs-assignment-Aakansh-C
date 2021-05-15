@@ -1,0 +1,36 @@
+.title {
+    position: absolute;
+    top: 2%;
+    left: 10%;
+}
+.topRight  {
+    position: absolute;
+    top: 5%;
+    right: 2%;
+}
+.topLeft  {
+    position: absolute;
+    top: 5%;
+    left: 2%;
+}
+
+.bottomRight  {
+    position: fixed;
+    bottom: 5%;
+    right: 2%;
+}
+.bottomLeft {
+    position: fixed;
+    font-size: 1vw;
+    bottom: 5%;
+    left: 2%;
+    transition-duration:.15s;
+    display: block;
+    border-radius: 10px;
+
+}
+ .Center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+ }
