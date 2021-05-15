@@ -1,155 +1,40 @@
 <!DOCTYPE html>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css">
-<head>
+
+
+    <head> 
         <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-       <style>
-        [v-cloak] {
-            display: none;}
-       
-        .highlight {
-            border: solid 3px red; 
-            color: red;
-        }
         
-        .shooting-star-leave-to, .shooting-star-enter{
-            transform: translateX(150px) rotate(30deg);
-            opacity: 0;
-        }
-        .shooting-star-enter-active, .shooting-star-leave-active {
-            transition: all .5s ease;
-        }
-
-        .neo-list-leave-to, .neo-list-enter {
-            opacity: 0;
-            transform: translatex(150px);
-        }
-        .neo-list-enter-active, .neo-list-leave-active {
-            transition: all 1s linear;
-        }
-
-        .spin-enter-active {
-            animation: spin-steps 2s;
-        }
-        @keyframes spin-steps {
-            0% {
-                transform: scale(1) rotate(0);
+        <style>
+            [v-cloak]{
+                display: none;
             }
-            50% {
-                transform: scale(10) rotate(360deg);
+            [v-open]{
+                display: visible;
             }
-            100% {
-                transform: scale(1) rotate(1080deg);
-            }
-        }
         </style>
+    </head>
 
-<div id="app">
-    <div class="container">
-        <div class=" card mt-5">
-        <h2 class="class-header"> Near-Earth 
-            
-            <transition name="spin" appear>
-                <span style="display:inline-block">Objects</span>
-            </transition>
-        </h2>
-            <transition name="shooting-star">
-                <div class="m-3" v-cloak v-if="numAsteroids > 0 && showSummary" > 
-                <p>Showing {{numAsteroids}} Asteroids</p>
-                <p>{{ClosestObject}} has the closest date to Earth</p> 
+
+
+    <body> 
+        <script>
+            <div id="app">
+                <div>
+                    <img id="lowry" v-bind:src="img"></img>
                 </div>
-            </transition>
-            <div>
-              <a href="#" @click="showSummary = !showSummary">Show/Hide Summary</a>  
             </div>
-                <table class="table table-striped" :class="['table-dark', 'table-bordered']">
-                <thead class="thead-light">
-                    <th> # </th>
-                    <th> Name </th>
-                    <th> Close Approach Date </th>
-                    <th> Miss Distance </th>
-                    <th> Remove </th>
-                </thead>
-                   <tbody is="transition-group" name="neo-list" v-cloak>
-                    <tr v-for="(a, index) in asteroids" :key="a.neo_reference_id" :class="{highlight: missingData(a)}">
-                        <td>{{index + 1}}</td>
-                        <td>{{a.name}}</td>
-                        <td>{{closeApproachDate(a)}}</td>
-                        <td>
-                            <ul>
-                                <li v-for="(value, key) in a.close_approach_data[0].miss_distance">
-                                        {{key}}: {{value}}
-                                </li>
-                            </ul>
-                        </td>
-                        <td> <button @click="remove(index)" class="btn btn-warning"> Remove </button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
 
-</head>    
-    <script>
+            var VM = new Vue ({
+                el: '#app',
+                data: {
+                    img: 'Lowry_Transparent.png'
+                },
 
-       var VM = new Vue({
-            el: '#app',
-            data: {
-                asteroids: [],
-                showSummary: true
-                },
-                computed: {
-                    numAsteroids: function () {
-                        return this.asteroids.length;
-                    },
-                    ClosestObject: function () {
-                        var neosHavingData = this.asteroids.filter(function (neo) {
-                            return neo.close_approach_data.length > 0;
-                        });            
-                        var simpleNeos= neosHavingData.map(function (neo) {
-                            return {name:neo.name, miles: neo.close_approach_data[0].miss_distance.miles};
-                        });   
-                        var sortedNeos = simpleNeos.sort(function (a,b) {
-                            return a.miles - b.miles;
-                        });
-                        return sortedNeos[0].name;
-                    }
-                },
-                created: function () {
-                    this.fetchAste ();
-                },
-            methods: {
-                fetchAste: function () {
-var apiKEY = 'OJbdd3aTSrXsiLhn9I0M7f1A67kDGpoypGk1khHX';
-var apiURL = 'https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=' + apiKEY;
-                    axios.get(apiURL)
-                        .then(function (res) {
-                            VM.asteroids = res.data.near_earth_objects.slice(0,10);
-                        });
-                },
-                closeApproachDate: function (a) {
-                        if(a.close_approach_data.length > 0) {
-                            return a.close_approach_data[0].close_approach_date;
-                        }
-                        return 'N/A';
-                },
-                remove: function (index) {
-                    this.asteroids.splice(index, 1);
-                },
-                getRowStyle: function (a) {
-                    if(a.close_approach_data.length == 0){
-                        return{border: 'solid 3px red', color: 'red'};
-                    }
-                },
-                missingData: function(a) {
-                    return a.close_approach_data.length == 0;
-                }
-            }   
-        });
+            })
+        </script>
+    </body>
 
 
-// NASA API Key
-//https://api.nasa.gov/planetary/apod?api_key=OJbdd3aTSrXsiLhn9I0M7f1A67kDGpoypGk1khHX
 
-</script>
