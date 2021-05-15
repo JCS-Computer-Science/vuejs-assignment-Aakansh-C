@@ -5,24 +5,23 @@
     <head> 
         <title> WE ARE THE NORTH</title>
         <link rel="icon" href="Raptors Logo.png" >
-        
+        <link rel="stylesheet" href="index.css">
+
         <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         
-        <link rel="stylesheet" href="index.css">
+
         
-        <style>
-            [v-cloak]{
-                display: none;
-            }
-            [v-open]{
-                display: visible;
-            }
-        </style>
+
 
 <div id="app">
-    <div>
-        <img id="lowry" class="center" v-bind:src="low"  width= 20%></img>
+    <div id="container" >
+        <div id="images"  >
+            <img id="lowry" v-bind:src="low" class="Center" width= 20%  @mouseover="popImage()" @mouseout="unpopImage()">
+                </img>
+            <img id="fred" v-bind:src="fred" class="Center" width= 20%  @click="popImageb()">
+                </img>
+        </div>
     </div>
 </div>
 
@@ -34,10 +33,17 @@
             var VM = new Vue ({
                 el: '#app',
                 data: {
-                    low: 'Lowry_Transparent.png',
-                    fred: 'Fred_Transparent.png'
+                    low:'Lowry_Transparent.png',
+                    fred:'Fred_Transparent 3.png',
                 },
-
+                methods: {
+                    popImage: function() {
+                    this.low= 'Lowry_Transparent2.png'
+                 },
+                 unpopimage: function() {
+                     this.low= 'Lowry_Tranparent.png'
+                 }
+                }
             })
         </script>
     </body>

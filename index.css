@@ -1,3 +1,15 @@
+[v-cloak]{
+    display: none;
+}
+[v-open]{
+    display: visible;
+}
+
+
+#app{
+    background-color: rgb(14, 13, 13);
+}
+
 .title {
     position: absolute;
     top: 2%;
@@ -30,7 +42,7 @@
 
 }
  .Center {
-    position: absolute;
+    position: static;
     top: 50%;
     left: 50%;
  }
