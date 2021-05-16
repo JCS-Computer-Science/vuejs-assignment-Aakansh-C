@@ -14,12 +14,12 @@
         
 
 
-<div id="app">
+<div id="app" v-bind:style= "{background:bColour}" width= 100% height= 100%>
     <div id="container" >
         <div id="images"  >
-            <img id="lowry" v-bind:src="low" class="Center" width= 20%  @mouseover="popImage()" @mouseout="unpopImage()">
+            <img id="lowry" v-bind:src="low" class="Center" width= 20%  @mouseover="popImage(1)" @mouseout="unpopImage(1)">
                 </img>
-            <img id="fred" v-bind:src="fred" class="Center" width= 20%  @click="popImageb()">
+            <img id="fred" v-bind:src="fred" class="Center" width= 20%  @mouseover="popImage(2)" @mouseout="unpopImage(2)">
                 </img>
         </div>
     </div>
@@ -33,15 +33,28 @@
             var VM = new Vue ({
                 el: '#app',
                 data: {
+                    bColour: "black",
                     low:'Lowry_Transparent.png',
                     fred:'Fred_Transparent 3.png',
                 },
                 methods: {
-                    popImage: function() {
-                    this.low= 'Lowry_Transparent2.png'
+                    popImage: function(p) {
+                    if(p == 1) {
+                        this.low= 'Lowry_Transparent2.png'
+                    } else {
+                        if(p == 2) {
+                            this.fred= 'Fred_Transparent 4.png'
+                        }
+                    }
                  },
-                 unpopimage: function() {
-                     this.low= 'Lowry_Tranparent.png'
+                 unpopImage: function(p) {
+                     if(p == 1) {
+                         this.low= 'Lowry_Transparent.png'
+                     } else {
+                         if(p == 2) {
+                             this.fred= "Fred_Transparent 3.png"
+                         }
+                     }
                  }
                 }
             })
