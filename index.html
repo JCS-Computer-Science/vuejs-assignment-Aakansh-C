@@ -14,13 +14,17 @@
         
 
 
-<div id="app" v-bind:style= "{background:bColour}" width= 100% height= 100%>
+<div id="app" >
     <div id="container" >
-        <div id="images"  >
-            <img id="lowry" v-bind:src="low" class="Center" width= 20%  @mouseover="popImage(1)" @mouseout="unpopImage(1)">
-                </img>
-            <img id="fred" v-bind:src="fred" class="Center" width= 20%  @mouseover="popImage(2)" @mouseout="unpopImage(2)">
-                </img>
+        <div id="images" v-if="showImg">
+           <transition name="slide" appear>
+                <img id="lowry" v-bind:src="low" width= 20% @click="page2(286), showImg = !showImg" @mouseover="popImage(1)" @mouseout="unpopImage(1)">
+                    </img>
+                </transition>
+            <transition name="slide" appear>
+                <img id="fred" v-bind:src="fred" width= 20% @click="page2(458), showImg = !showImg" @mouseover="popImage(2)" @mouseout="unpopImage(2)">
+                    </img>
+                </transition>
         </div>
     </div>
 </div>
@@ -33,9 +37,15 @@
             var VM = new Vue ({
                 el: '#app',
                 data: {
-                    bColour: "black",
+                    showImg: true,
+
                     low:'Lowry_Transparent.png',
                     fred:'Fred_Transparent 3.png',
+                    response: [],
+                    data: []
+                },
+                computed: {
+
                 },
                 methods: {
                     popImage: function(p) {
@@ -55,7 +65,16 @@
                              this.fred= "Fred_Transparent 3.png"
                          }
                      }
+                 },
+                 page2: async function(id) {
+                    response = await fetch(`https://www.balldontlie.io/api/v1/season_averages?per_page=100&seasons[]=2019&player_ids[]=${id}`)
+                    data = await response.json();
+                    console.log(data); 
+                    createTable();
                  }
+                },
+                createTable: function() {
+
                 }
             })
         </script>
