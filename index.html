@@ -22,9 +22,28 @@
                     </img>
                 </transition>
             <transition name="slide" appear>
-                <img id="fred" v-bind:src="fred" width= 20% @click="page2(458), showImg = !showImg" @mouseover="popImage(2)" @mouseout="unpopImage(2)">
+                <img id="fred" v-bind:src="fred" width= 25% @click="page2(458), showImg = !showImg" @mouseover="popImage(2)" @mouseout="unpopImage(2)">
                     </img>
                 </transition>
+        </div>
+        <div id="table">
+            <table v-if="!showImg" class="table table-striped" :class="['table-dark', 'table-bordered']">
+                <thead class="thead-light">
+                    <th>Statistics</th>
+                    <th>Year Averages</th>
+                    <th></th>
+                    <th></th>
+                </thead>
+                   <tbody>
+                    <tr>
+                        <td>{{playerData}}</td>
+                        <td>Rebounds</td>
+                        <td></td>
+                        <td>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -42,7 +61,9 @@
                     low:'Lowry_Transparent.png',
                     fred:'Fred_Transparent 3.png',
                     response: [],
-                    data: []
+                    data: [],
+
+                    name: []
                 },
                 computed: {
 
@@ -70,12 +91,16 @@
                     response = await fetch(`https://www.balldontlie.io/api/v1/season_averages?per_page=100&seasons[]=2019&player_ids[]=${id}`)
                     data = await response.json();
                     console.log(data); 
-                    createTable();
+                    VM.data = data.data[0];
+
+                    const { ast, blk, fta } = VM.data
+                    console.log(fta);
+
+                 },
+                 playerData: function() {
+                     return data.data[0].ast;
                  }
                 },
-                createTable: function() {
-
-                }
             })
         </script>
     </body>
