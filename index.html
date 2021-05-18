@@ -34,22 +34,10 @@
 
                 </thead>
                    <tbody v-cloak>
-                    <tr>
-                        <td>Assist</td>
-                        <td>{{ast}}</td>
+                    <tr v-for="stat in Object.keys(data)">
+                        <td>{{stat}}</td>
+                        <td>{{data[stat]}}</td>
                         
-                    </tr>
-                    <tr>
-                        <td>Block</td>
-                        <td>{{blk}}</td>
-                    </tr>
-                    <tr>
-                        <td>Free Throws</td>
-                        <td>{{ftm}}</td>
-                    </tr>
-
-                    <tr>
-                        <td>{{data}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -71,8 +59,6 @@
                     fred:'Fred_Transparent 3.png',
                     response: [],
                     data: [],
-
-                    name: [],
 
                     ast: '',
                     blk: '',
@@ -106,20 +92,8 @@
                     data = await response.json();
                     console.log(data); 
                     VM.data = data.data[0];
-
-//                    VM.name = data.data[0].split("", 2);
-  //                  consol.log(name);
-                    
-                    const { ast, blk, ftm } = VM.data
-                    VM.ast = ast;
-                    VM.blk = blk;
-                    VM.ftm = ftm;
-
                  },
-                 playerData: function() {
-                     return data.data[0].ast;
-                 }
-                },
+                }
             })
         </script>
     </body>
