@@ -16,10 +16,24 @@ body{
 
 }
 
-.colourW {
-    color: white;
+.colourR {
+    text-emphasis-color: red;
 }
 
+.Table {
+    size: 10vw;
+}
+
+.title{ 
+    color: rgba(177, 4, 4, 0.76);
+    font-size: 4vw;
+    position: relative;
+    border-radius: 1px;
+    font-family: "Comics Sans MS", "Comic Sans", cursive;
+    top: 1vh;
+    left: 30vw;
+
+}
 
 /* Transitions */
 
@@ -29,6 +43,13 @@ body{
 }
 .slide-enter-active, .slide-leave-active {
     transition: all .5s linear;
+}
+.shooting-star-leave-to, .shooting-star-enter{
+    transform: translateX(150px) rotate(30deg);
+    opacity: 0;
+}
+.shooting-star-enter-active, .shooting-star-leave-active {
+    transition: all .5s ease;
 }
 
 
@@ -49,40 +70,3 @@ body{
         top: 20vh;
         right: 15vw;
     }
-
-.title {
-    position: absolute;
-    top: 2%;
-    left: 10%;
-}
-.topRight  {
-    position: absolute;
-    top: 5%;
-    right: 2%;
-}
-.topLeft  {
-    position: absolute;
-    top: 5%;
-    left: 2%;
-}
-
-.bottomRight  {
-    position: fixed;
-    bottom: 5%;
-    right: 2%;
-}
-.bottomLeft {
-    position: fixed;
-    font-size: 1vw;
-    bottom: 5%;
-    left: 2%;
-    transition-duration:.15s;
-    display: block;
-    border-radius: 10px;
-
-}
- .Center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
- }

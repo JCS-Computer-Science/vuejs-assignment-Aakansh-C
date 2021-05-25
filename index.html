@@ -3,7 +3,7 @@
 
 
     <head> 
-        <title> WE ARE THE NORTH</title>
+        <title class="colourR" > WE ARE THE NORTH</title>
         <link rel="icon" href="Raptors Logo.png" >
         <link rel="stylesheet" href="index.css">
 
@@ -16,31 +16,39 @@
 
 <div id="app" >
     <div id="container" >
-        <div id="images" v-if="showImg">
-           <transition name="slide" appear>
-                <img id="lowry" v-bind:src="low" width= 20% @click="page2(286), showImg = !showImg" @mouseover="popImage(1)" @mouseout="unpopImage(1)">
-                    </img>
-                </transition>
-            <transition name="slide" appear>
-                <img id="fred" v-bind:src="fred" width= 25% @click="page2(458), showImg = !showImg" @mouseover="popImage(2)" @mouseout="unpopImage(2)">
-                    </img>
-                </transition>
-        </div>
-        <div id="table">
-            <table v-if="!showImg" class="table table-striped" :class="['table-dark', 'table-bordered']">
-                <thead class="thead-light">
-                    <th>Statistics</th>
-                    <th>Year Averages</th>
+        <div>            
+            <transition name="shooting-star" >
+                <div class="m-3 title" > 
+                <p>Raptors Statistics</p>
+                </div>
+            </transition>
 
-                </thead>
-                   <tbody v-cloak>
-                    <tr v-for="stat in Object.keys(data)">
-                        <td>{{stat}}</td>
-                        <td>{{data[stat]}}</td>
-                        
-                    </tr>
-                </tbody>
-            </table>
+            <div id="images" v-if="showImg">
+            <transition name="slide" appear>
+                    <img id="lowry" v-bind:src="low" width= 20% @click="page2(286), showImg = !showImg" @mouseover="popImage(1)" @mouseout="unpopImage(1)">
+                        </img>
+                    </transition>
+                <transition name="slide" appear>
+                    <img id="fred" v-bind:src="fred" width= 25% @click="page2(458), showImg = !showImg" @mouseover="popImage(2)" @mouseout="unpopImage(2)">
+                        </img>
+                    </transition>
+            </div>
+            <div id="table">
+                <table v-if="!showImg" class="table table-striped Table mt-5 container" :class="['table-dark', 'table-bordered']">
+                    <thead class="thead-light">
+                        <th>Statistics</th>
+                        <th>Year Averages</th>
+
+                    </thead>
+                    <tbody v-cloak is='transition-group' name="slide">
+                        <tr v-for="stat in Object.keys(data)" key="d">
+                            <td>{{stat}}</td>
+                            <td>{{data[stat]}}</td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
