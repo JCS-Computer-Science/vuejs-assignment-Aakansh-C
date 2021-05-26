@@ -13,8 +13,34 @@ body{
     background-position: center;
     background-attachment: fixed;
     background-size: cover;
-
 }
+
+#app{
+    background-color:  rgba(0, 0, 0, 0..05);
+}
+
+
+/* Player Image positions */
+     #lowry {
+        position: absolute;
+        top: 20vh;
+        left: 15vw;
+    }
+
+    #fred {
+        position: absolute;
+        top: 20vh;
+        right: 15vw;
+    }
+
+    #signature {
+        color: rgb(216, 235, 238);
+        font-family: 'Caveat'; 
+        position: fixed;
+            bottom: .05vh;
+            right: 1.5vw;
+    }
+    
 
 .colourR {
     text-emphasis-color: red;
@@ -44,29 +70,12 @@ body{
 .slide-enter-active, .slide-leave-active {
     transition: all .5s linear;
 }
-.shooting-star-leave-to, .shooting-star-enter{
-    transform: translateX(150px) rotate(30deg);
+.drop-leave-to, .drop-enter{
+    transform: translateY(150px) rotate(30deg);
     opacity: 0;
 }
-.shooting-star-enter-active, .shooting-star-leave-active {
-    transition: all .5s ease;
+.drop-enter-active, .drop-leave-active {
+    transition: all 1s linear;
 }
 
 
-#app{
-    background-color:  rgba(0, 0, 0, 0..05);
-}
-
-
-/* Player Image positions */
-     #lowry {
-        position: static;
-        top: 20vh;
-        left: 15vw;
-    }
-
-    #fred {
-        position: static;
-        top: 20vh;
-        right: 15vw;
-    }
