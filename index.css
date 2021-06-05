@@ -1,12 +1,11 @@
 [v-cloak] {
     display: none;
 }
-
 [v-open]{
     display: visible;
 }
 
-
+/*Background*/
 body{
     background-color: rgba(0, 0, 0, 0.87);
     background-repeat: no-repeat;
@@ -15,10 +14,10 @@ body{
     background-size: cover;
 }
 
-#app{
-    background-color:  rgba(0, 0, 0, 0..05);
-}
-
+/* Specific Classes */
+    #app{
+        background-color:  rgba(0, 0, 0, 0..05);
+    }
 
 /* Player Image positions */
      #lowry {
@@ -41,41 +40,39 @@ body{
             right: 1.5vw;
     }
     
+/* Public Classes */
+    .colourR {
+        text-emphasis-color: red;
+    }
 
-.colourR {
-    text-emphasis-color: red;
-}
+    .Table {
+        size: 10vw;
+    }
 
-.Table {
-    size: 10vw;
-}
-
-.title{ 
-    color: rgba(177, 4, 4, 0.76);
-    font-size: 4vw;
-    position: relative;
-    border-radius: 1px;
-    font-family: "Comics Sans MS", "Comic Sans", cursive;
-    top: 1vh;
-    left: 30vw;
-
-}
+    .title{ 
+        color: rgba(177, 4, 4, 0.76);
+        font-size: 4vw;
+        position: relative;
+        border-radius: 1px;
+        font-family: "Comics Sans MS", "Comic Sans", cursive;
+        top: 1vh;
+        left: 30vw;
+    }
 
 /* Transitions */
-
-.slide-leave-to, .slide-enter {
-    opacity: 0;
-    transform: translatex(25px);
-}
-.slide-enter-active, .slide-leave-active {
-    transition: all .5s linear;
-}
-.drop-leave-to, .drop-enter{
-    transform: translateY(150px) rotate(30deg);
-    opacity: 0;
-}
-.drop-enter-active, .drop-leave-active {
-    transition: all 1s linear;
-}
+    .slide-leave-to, .slide-enter {
+        opacity: 0;
+        transform: translatex(25px);
+    }
+    .slide-enter-active, .slide-leave-active {
+        transition: all .5s linear;
+    }
+    .drop-leave-to, .drop-enter{
+        transform: translateY(150px) rotate(30deg);
+        opacity: 0;
+    }
+    .drop-enter-active, .drop-leave-active {
+        transition: all 1s linear;
+    }
 
 
